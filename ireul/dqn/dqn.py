@@ -8,12 +8,24 @@ from torch.nn import functional as F
 from tensorboardX import SummaryWriter
 
 from ..common.replay_buffers import ReplayMemory
+from ..common.base_class import BaseAgent
 from .models import DQN
 
 
-class DQNAgent:
+class DQNAgent(BaseAgent):
+    def __init__(
+            self,
+            env,
+            use_conv=True,
+            learning_rate=3e-4,
+            gamma=0.99,
+            tau=0.01,
+            buffer_size=10000,
+            eps_start=0.9,
+            eps_end=0.05,
+            eps_decay=200
+        ):
 
-    def __init__(self, env, use_conv=True, learning_rate=3e-4, gamma=0.99, tau=0.01, buffer_size=10000):
         self.env = env
         self.learning_rate = learning_rate
         self.gamma = gamma
@@ -21,12 +33,10 @@ class DQNAgent:
         self.replay_buffer = ReplayMemory(capacity=buffer_size)
         self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
         self.use_conv = use_conv
+        self.eps_start = eps_start
+        self.eps_end = eps_end
+        self.eps_decay = eps_decay
 
-        self.EPS_START = 0.9
-        self.EPS_END = 0.05
-        self.EPS_DECAY = 200
-
-        #TODO
         self.steps_done = 0
 
         if self.use_conv:
@@ -44,7 +54,7 @@ class DQNAgent:
         
     def get_action(self, state, eps=0.20):
         sample = random.random()
-        eps_threshold = self.EPS_END + (self.EPS_START - self.EPS_END) * math.exp(-1. * self.steps_done / self.EPS_DECAY)
+        eps_threshold = self.eps_end + (self.eps_start - self.eps_end) * math.exp(-1. * self.steps_done / self.eps_decay)
         self.steps_done += 1
         if sample > eps_threshold:
             with torch.no_grad():
@@ -76,6 +86,6 @@ class DQNAgent:
         loss.backward()
         self.optimizer.step()
     
-    def sync(self):
+    def target_net_sync(self):
         self.target_net.load_state_dict(self.policy_net.state_dict())
     
