@@ -7,9 +7,9 @@ from torch.nn import functional as F
 
 from tensorboardX import SummaryWriter
 
-from ..common.replay_buffers import ReplayMemory
-from ..common.base_class import BaseAgent
-from .models import DQN
+from ireul.common.replay_buffers import ReplayMemory
+from ireul.common.base_class import BaseAgent
+from ireul.dqn.models import DQN
 
 
 class DQNAgent(BaseAgent):
