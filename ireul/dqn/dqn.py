@@ -72,7 +72,7 @@ class DQNAgent(BaseAgent):
         curr_Q = self.policy_net.forward(state_batch).gather(1, action_batch)
         next_Q = self.target_net.forward(next_state_batch)
         max_next_Q = torch.max(next_Q, 1)[0]
-        max_next_Q = max_next_Q.view(max_next_Q.size(0), 1)
+        max_next_Q = max_next_Q.unsqueeze(-1)
         expected_Q = reward_batch + (1 - done_batch) * self.gamma * max_next_Q
         
         loss = F.mse_loss(curr_Q, expected_Q.detach())
