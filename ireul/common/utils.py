@@ -1,6 +1,12 @@
 import gym
 from .base_class import BaseAgent
 
+from datetime import date, datetime
+from tensorboardX import SummaryWriter
+
+# TODO: implement a logger
+writer = SummaryWriter()
+
 def mini_batch_train(
     env: gym.Env,
     agent: BaseAgent,
@@ -29,6 +35,8 @@ def mini_batch_train(
             episode_rewards.append(episode_reward)
             print("Episode " + str(len(episode_rewards)) + ": " + str(episode_reward))
             
+            writer.add_scalar("reward", episode_reward, step)
+            
             if episode_reward > 490:
                 break
 
@@ -39,4 +47,6 @@ def mini_batch_train(
 
         state = next_state
 
+    writer.close()
+    
     return episode_rewards
