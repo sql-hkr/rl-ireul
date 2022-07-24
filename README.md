@@ -1,28 +1,31 @@
 # RL-Ireul
 
 ## Implemented
+
 - [x] Vanilla DQN
-- [ ] Double DQN
+- [x] Double DQN
 - [ ] Dueling DQN
 - [ ] Prioritized DQN
 - [ ] Noisy DQN
 - [ ] Categorical DQN
 - [ ] Rainbow DQN
 
-
 ## Dependencies
+
 - pytorch-1.12.0
 - tensorboard-2.6.0
 - tensorboardx-2.2
 - gym[atari,accept-rom-license]==0.25.0
 
 ## Docker Image
+
 ```
 docker build -t ireul:0.1 .
 docker run --gpus all --rm -it -v $PWD:/workspace --network=host ireul:0.1
 ```
 
 ### jupyter lab
+
 ```shell
 jupyter lab --allow-root
 ```
@@ -32,6 +35,7 @@ xvfb-run -s "-screen 0 1400x900x24" jupyter lab
 ```
 
 ## Usage
+
 ```shell
 python setup.py develop
 # or
