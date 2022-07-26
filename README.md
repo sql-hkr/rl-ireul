@@ -2,13 +2,21 @@
 
 ## Implemented
 
+### Model free
+
 - [x] Vanilla DQN
 - [x] Double DQN
-- [ ] Dueling DQN
+- [x] Dueling DQN
 - [ ] Prioritized DQN
-- [ ] Noisy DQN
+- [x] Noisy DQN
 - [ ] Categorical DQN
 - [ ] Rainbow DQN
+
+### Model Based
+
+### Imitation
+
+### Multi Agent
 
 ## Dependencies
 
