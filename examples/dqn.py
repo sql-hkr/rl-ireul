@@ -6,9 +6,10 @@ from ireul.dqn.dqn import DQNAgent
 env_id = "CartPole-v1"
 MAX_STEPS = 100000
 BATCH_SIZE = 32
+LR = 1e-3
 
 env = gym.make(env_id)
-agent = DQNAgent(env, use_conv=False)
+agent = DQNAgent(env, use_conv=False, learning_rate=LR)
 episode_rewards = mini_batch_train(env, agent, MAX_STEPS, BATCH_SIZE)
 
 import numpy as np
