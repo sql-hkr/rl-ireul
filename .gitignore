@@ -6,3 +6,6 @@ __pycache__
 
 # tensorboardx
 runs
+
+# Mac
+.DS_Store
