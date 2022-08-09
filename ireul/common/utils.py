@@ -10,7 +10,6 @@ from torch.nn import functional as F
 
 from tensorboardX import SummaryWriter
 
-# TODO: implement a logger
 writer = SummaryWriter()
 
 def mini_batch_train(
@@ -26,6 +25,7 @@ def mini_batch_train(
     episode_reward = 0
 
     for step in range(max_steps):
+        env.render()
         action = agent.get_action(state)
         next_state, reward, done, _ = env.step(action)
         agent.replay_buffer.push(state, action, next_state, reward, done)
