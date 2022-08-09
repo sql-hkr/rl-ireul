@@ -27,9 +27,18 @@
 
 ## Docker Image
 
+### Linux
+
 ```
 docker build -t ireul:0.1 .
 docker run --gpus all --rm -it -v $PWD:/workspace --network=host ireul:0.1
+```
+
+### M1 Mac
+
+```
+docker build -t ireul:0.1 .
+docker run --rm -it -v $PWD:/workspace --platform=linux/amd64 --network=host ireul:0.1
 ```
 
 ### jupyter lab
